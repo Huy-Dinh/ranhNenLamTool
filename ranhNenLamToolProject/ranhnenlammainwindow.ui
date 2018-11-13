@@ -48,7 +48,7 @@
         <item>
          <layout class="QHBoxLayout" name="UpLeft2">
           <item>
-           <widget class="QComboBox" name="comboBox"/>
+           <widget class="QComboBox" name="profileComboBox"/>
           </item>
          </layout>
         </item>
