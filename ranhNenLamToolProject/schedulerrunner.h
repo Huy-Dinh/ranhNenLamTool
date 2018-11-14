@@ -4,19 +4,21 @@
 #include <QObject>
 #include <scheduledtask.h>
 #include <QStringListModel>
-class ScheduledTaskCollection
+class SchedulerRunner
 {
 private:
     QStringListModel* pScheduleStringListModel;
     QStringList mScheduleStringList;
     QList<ScheduledTask> mScheduledTaskList;
-
+    QString createStringFromTask(ScheduledTask scheduleTask);
+    QString createStringAt(int i);
+    void updateModelAt(int i);
 public:
-    ScheduledTaskCollection(QWidget* parent);
+    SchedulerRunner(QWidget* parent);
     QStringListModel* getPointerToStringListModel();
     void addScheduleTask(ScheduledTask scheduledTask);
     void removeTaskAt(int i);
-    ~ScheduledTaskCollection();
+    ~SchedulerRunner();
 };
 
 #endif // SCHEDULEDTASKCOLLECTION_H

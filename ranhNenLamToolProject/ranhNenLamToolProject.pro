@@ -28,12 +28,12 @@ SOURCES += \
         main.cpp \
         ranhnenlammainwindow.cpp \
     scheduledtask.cpp \
-    scheduledtaskcollection.cpp
+    schedulerrunner.cpp
 
 HEADERS += \
         ranhnenlammainwindow.h \
     scheduledtask.h \
-    scheduledtaskcollection.h
+    schedulerrunner.h
 
 FORMS += \
         ranhnenlammainwindow.ui

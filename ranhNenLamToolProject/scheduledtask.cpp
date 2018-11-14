@@ -22,6 +22,11 @@ ScheduledTask::scheduledAction_t ScheduledTask::getAction()
     return mScheduledAction;
 }
 
+ScheduledTask::scheduleState_t ScheduledTask::getState()
+{
+    return mScheduleState;
+}
+
 void ScheduledTask::setState(ScheduledTask::scheduleState_t scheduleState)
 {
     mScheduleState = scheduleState;

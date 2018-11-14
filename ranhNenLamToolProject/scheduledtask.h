@@ -32,6 +32,7 @@ public:
     QTime getScheduledTime();
     QString getFileLocation();
     scheduledAction_t getAction();
+    scheduleState_t getState();
     void setState(scheduleState_t scheduleState);
 };
 
