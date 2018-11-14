@@ -1,33 +1,36 @@
 #include "scheduledtask.h"
-
 ScheduledTask::ScheduledTask(QTime scheduledTime, QString fileLocation, ScheduledTask::scheduledAction_t scheduledAction)
 {
     mScheduledTime = scheduledTime;
     mFileLocation = fileLocation;
     mScheduledAction = scheduledAction;
+    mScheduleState = ScheduledTask::STATE_ACTIVE;
 }
 
-QTime ScheduledTask::getScheduledTime()
+void ScheduledTask::run()
 {
-    return mScheduledTime;
-}
+    if (mScheduleState == ScheduledTask::STATE_ACTIVE)
+    {
+        QString executableName = mFileLocation.mid(mFileLocation.lastIndexOf("\\") + 1);
+        if (mScheduledAction == ScheduledTask::ACTION_CLOSE)
+        {
+            QProcess::startDetached("taskkill /im " + executableName + " /f");
+        }
+        else if (mScheduledAction == ScheduledTask::ACTION_OPEN)
+        {
+            QProcess::startDetached(mFileLocation);
+        }
+        //Auto deactivate itself
 
-QString ScheduledTask::getFileLocation()
-{
-    return mFileLocation;
-}
-
-ScheduledTask::scheduledAction_t ScheduledTask::getAction()
-{
-    return mScheduledAction;
-}
-
-ScheduledTask::scheduleState_t ScheduledTask::getState()
-{
-    return mScheduleState;
+    }
 }
 
 void ScheduledTask::setState(ScheduledTask::scheduleState_t scheduleState)
 {
     mScheduleState = scheduleState;
+}
+
+ScheduledTask::~ScheduledTask()
+{
+  delete pProcess;
 }

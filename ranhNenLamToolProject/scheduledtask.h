@@ -4,7 +4,7 @@
 #include <QObject>
 #include <QWidget>
 #include <QTime>
-
+#include <QProcess>
 
 class ScheduledTask
 {
@@ -27,12 +27,11 @@ private:
     QString mFileLocation;
     scheduledAction_t mScheduledAction;
     scheduleState_t mScheduleState;
+    QProcess *pProcess;
 public:
     ScheduledTask(QTime scheduledTime, QString fileLocation, scheduledAction_t scheduledAction);
-    QTime getScheduledTime();
-    QString getFileLocation();
-    scheduledAction_t getAction();
-    scheduleState_t getState();
+    ~ScheduledTask();
+    void run();
     void setState(scheduleState_t scheduleState);
 };
 
