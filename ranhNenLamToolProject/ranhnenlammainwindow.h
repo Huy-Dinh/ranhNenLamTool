@@ -3,7 +3,6 @@
 
 #include <QMainWindow>
 #include <QModelIndexList>
-#include <schedulerrunner.h>
 
 namespace Ui {
 class ranhNenLamMainWindow;
@@ -42,7 +41,6 @@ private slots:
 
 private:
     Ui::ranhNenLamMainWindow *ui;
-    SchedulerRunner *scheduledTaskCollection;
 };
 
 #endif // RANHNENLAMMAINWINDOW_H

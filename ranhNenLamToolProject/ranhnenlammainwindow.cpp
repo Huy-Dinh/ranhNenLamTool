@@ -8,14 +8,11 @@ ranhNenLamMainWindow::ranhNenLamMainWindow(QWidget *parent) :
     ui(new Ui::ranhNenLamMainWindow)
 {
     ui->setupUi(this);
-    scheduledTaskCollection = new SchedulerRunner(this);
-    ui->scheduledTaskListView->setModel(scheduledTaskCollection->getPointerToStringListModel());
 }
 
 ranhNenLamMainWindow::~ranhNenLamMainWindow()
 {
     delete ui;
-    delete scheduledTaskCollection;
 }
 
 
@@ -66,7 +63,6 @@ void ranhNenLamMainWindow::on_iconGroupButton_clicked()
 
 void ranhNenLamMainWindow::on_schedulerAddButton_clicked()
 {
-    scheduledTaskCollection->addScheduleTask(ScheduledTask(QTime(10, 10, 10), "xyz", ScheduledTask::ACTION_OPEN));
 }
 
 void ranhNenLamMainWindow::on_schedulerRemoveButton_clicked()
