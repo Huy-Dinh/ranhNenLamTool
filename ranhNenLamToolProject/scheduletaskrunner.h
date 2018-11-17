@@ -11,6 +11,7 @@
 #include <scheduledtask.h>
 #include <QListView>
 #include <QPushButton>
+#include <QTimer>
 
 class ScheduleTasksRunner : public QAbstractListModel
 {
@@ -29,6 +30,9 @@ private:
     QList<ScheduledTask> mListOfTasks;
     QAbstractItemView* pItemView;
     QPushButton* pActivateButton;
+    QPushButton* pAddButton;
+    QPushButton* pRemoveButton;
+    QTimer schedulerTimer;
 public slots:
     void viewIndexMoved(const QModelIndexList &indexes);
     void activateButtonClicked();
