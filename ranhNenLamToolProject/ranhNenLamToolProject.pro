@@ -28,15 +28,18 @@ SOURCES += \
         main.cpp \
         ranhnenlammainwindow.cpp \
     scheduledtask.cpp \
-    scheduletaskrunner.cpp
+    scheduletaskrunner.cpp \
+    addscheduledtaskdialog.cpp
 
 HEADERS += \
         ranhnenlammainwindow.h \
     scheduledtask.h \
-    scheduletaskrunner.h
+    scheduletaskrunner.h \
+    addscheduledtaskdialog.h
 
 FORMS += \
-        ranhnenlammainwindow.ui
+        ranhnenlammainwindow.ui \
+    addscheduledtaskdialog.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
