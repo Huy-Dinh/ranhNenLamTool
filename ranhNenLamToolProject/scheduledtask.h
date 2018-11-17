@@ -5,9 +5,11 @@
 #include <QWidget>
 #include <QTime>
 #include <QProcess>
+#include <schechuledtasksrunner.h>
 
 class ScheduledTask
 {
+    friend class ScheduledTasksRunner;
 public:
     typedef enum
     {

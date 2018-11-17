@@ -27,11 +27,13 @@ CONFIG += c++11
 SOURCES += \
         main.cpp \
         ranhnenlammainwindow.cpp \
-    scheduledtask.cpp
+    scheduledtask.cpp \
+    scheduletaskrunner.cpp
 
 HEADERS += \
         ranhnenlammainwindow.h \
-    scheduledtask.h
+    scheduledtask.h \
+    scheduletaskrunner.h
 
 FORMS += \
         ranhnenlammainwindow.ui
