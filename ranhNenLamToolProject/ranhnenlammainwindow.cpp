@@ -1,5 +1,7 @@
 #include "ranhnenlammainwindow.h"
 #include "ui_ranhnenlammainwindow.h"
+#include <QStringListModel>
+#include <QStringList>
 
 ranhNenLamMainWindow::ranhNenLamMainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -61,7 +63,6 @@ void ranhNenLamMainWindow::on_iconGroupButton_clicked()
 
 void ranhNenLamMainWindow::on_schedulerAddButton_clicked()
 {
-
 }
 
 void ranhNenLamMainWindow::on_schedulerRemoveButton_clicked()
