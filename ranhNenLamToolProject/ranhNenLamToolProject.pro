@@ -28,14 +28,14 @@ SOURCES += \
         main.cpp \
         ranhnenlammainwindow.cpp \
     scheduledtask.cpp \
-    scheduletaskrunner.cpp \
-    addscheduledtaskdialog.cpp
+    addscheduledtaskdialog.cpp \
+    scheduletasksrunner.cpp
 
 HEADERS += \
         ranhnenlammainwindow.h \
     scheduledtask.h \
-    scheduletaskrunner.h \
-    addscheduledtaskdialog.h
+    addscheduledtaskdialog.h \
+    scheduletasksrunner.h
 
 FORMS += \
         ranhnenlammainwindow.ui \

@@ -1,4 +1,4 @@
-#include "scheduletaskrunner.h"
+#include "scheduletasksrunner.h"
 
 ScheduleTasksRunner::ScheduleTasksRunner(QObject *parent,
                                          QListView *itemView,
@@ -7,16 +7,25 @@ ScheduleTasksRunner::ScheduleTasksRunner(QObject *parent,
                                          QPushButton *RemoveButton)
     : QAbstractListModel(parent)
 {
-
+    pItemView = itemView;
+    //pItemView->setModel(this);
 }
+
 int ScheduleTasksRunner::rowCount(const QModelIndex &parent) const
 {
-    return 1;
+    return 2;
 }
 
 QVariant ScheduleTasksRunner::data(const QModelIndex &index, int role) const
 {
-    return QVariant();
+    if (index.isValid())
+    {
+        return "AA";
+    }
+    else
+    {
+        QVariant();
+    }
 }
 
 void ScheduleTasksRunner::viewIndexMoved(const QModelIndexList &indexes)
