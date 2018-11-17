@@ -2,6 +2,7 @@
 #define ADDSCHEDULEDTASKDIALOG_H
 
 #include <QDialog>
+#include <scheduledtask.h>
 
 namespace Ui {
 class AddScheduledTaskDialog;
@@ -14,8 +15,12 @@ class AddScheduledTaskDialog : public QDialog
 public:
     explicit AddScheduledTaskDialog(QWidget *parent = nullptr);
     ~AddScheduledTaskDialog();
+    ScheduledTask getNewScheduledTask();
 
 private:
+    QTime lastSelectedTime;
+    QString lastSelectedApplication;
+    ScheduledTask::scheduledAction_t lastSelectedAction;
     Ui::AddScheduledTaskDialog *ui;
 };
 

@@ -10,6 +10,12 @@
     <height>182</height>
    </rect>
   </property>
+  <property name="sizePolicy">
+   <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+    <horstretch>0</horstretch>
+    <verstretch>0</verstretch>
+   </sizepolicy>
+  </property>
   <property name="windowTitle">
    <string>Dialog</string>
   </property>
@@ -47,7 +53,7 @@
      <item>
       <widget class="QPushButton" name="browseButton">
        <property name="text">
-        <string>PushButton</string>
+        <string>Browse</string>
        </property>
       </widget>
      </item>
