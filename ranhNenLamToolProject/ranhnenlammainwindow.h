@@ -3,7 +3,11 @@
 
 #include <QMainWindow>
 #include <QModelIndexList>
-
+#include "Windows.h"
+#include "WinUser.h"
+#include "CommCtrl.h"
+#include "qdebug.h"
+#include "tchar.h"
 namespace Ui {
 class ranhNenLamMainWindow;
 }
@@ -41,6 +45,7 @@ private slots:
 
 private:
     Ui::ranhNenLamMainWindow *ui;
+    HWND handleDesktopWindow;
 };
 
 #endif // RANHNENLAMMAINWINDOW_H
