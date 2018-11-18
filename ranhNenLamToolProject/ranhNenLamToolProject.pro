@@ -26,10 +26,16 @@ CONFIG += c++11
 
 SOURCES += \
         main.cpp \
-        ranhnenlammainwindow.cpp
+        ranhnenlammainwindow.cpp \
+    profilelistmodel.cpp \
+    profileobject.cpp \
+    groupicon.cpp
 
 HEADERS += \
-        ranhnenlammainwindow.h
+        ranhnenlammainwindow.h \
+    profilelistmodel.h \
+    profileobject.h \
+    groupicon.h
 
 FORMS += \
         ranhnenlammainwindow.ui
