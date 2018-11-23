@@ -2,7 +2,7 @@
 ScheduledTask::ScheduledTask(QTime scheduledTime, QString fileLocation, ScheduledTask::scheduledAction_t scheduledAction)
 {
     mScheduledTime = scheduledTime;
-    mFileLocation = fileLocation;
+    mFileLocation = "\"" + fileLocation;
     mScheduledAction = scheduledAction;
     mScheduleState = ScheduledTask::STATE_ACTIVE;
 }

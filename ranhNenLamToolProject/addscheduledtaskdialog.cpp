@@ -40,6 +40,10 @@ void AddScheduledTaskDialog::accept()
 void AddScheduledTaskDialog::on_buttonBox_accepted()
 {
     ScheduledTask::scheduledAction_t scheduledAction = ScheduledTask::ACTION_OPEN;
+    if (ui->actionCombobox->currentText() == ACTION_COMBOBOX_CLOSE_STRING)
+    {
+        scheduledAction = ScheduledTask::ACTION_CLOSE;
+    }
     QTime scheduledTime = QTime(ui->timeTimeEdit->time());
     QString selectedApplication = ui->applicationLineEdit->text();
     if (selectedApplication != "")
