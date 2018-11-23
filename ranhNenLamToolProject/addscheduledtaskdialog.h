@@ -21,6 +21,7 @@ public:
 private slots:
     void on_buttonBox_accepted();
     void on_browseButton_clicked();
+    void accept();
 
 private:
     Ui::AddScheduledTaskDialog *ui;

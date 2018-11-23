@@ -1,6 +1,7 @@
 #include "addscheduledtaskdialog.h"
 #include "ui_addscheduledtaskdialog.h"
 #include <QFileDialog>
+#include <QMessageBox>
 #include <QString>
 #include "scheduledtask.h"
 
@@ -21,6 +22,19 @@ AddScheduledTaskDialog::AddScheduledTaskDialog(QWidget *parent) :
 AddScheduledTaskDialog::~AddScheduledTaskDialog()
 {
     delete ui;
+}
+
+void AddScheduledTaskDialog::accept()
+{
+    QString selectedApplication = ui->applicationLineEdit->text();
+    if (selectedApplication == "")
+    {
+        QMessageBox::warning(nullptr, "Warning", "No application selected");
+    }
+    else
+    {
+        QDialog::accept();
+    }
 }
 
 void AddScheduledTaskDialog::on_buttonBox_accepted()
