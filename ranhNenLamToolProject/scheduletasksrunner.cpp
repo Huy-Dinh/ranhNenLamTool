@@ -89,8 +89,8 @@ void ScheduleTasksRunner::selectedIndexChange(const QModelIndex & current, const
 {
     if (current.isValid())
     {
-        mSelectedIndex = current.row();
-        updateActivateButton(mSelectedIndex);
+        int selectedIndex = current.row();
+        updateActivateButton(selectedIndex);
         if (pRemoveButton != nullptr)
         {
             pRemoveButton->setEnabled(true);
@@ -100,19 +100,19 @@ void ScheduleTasksRunner::selectedIndexChange(const QModelIndex & current, const
 
 void ScheduleTasksRunner::activateButtonClicked()
 {
-    mSelectedIndex = pItemView->selectionModel()->selectedRows().at(0).row();
+    int selectedIndex = pItemView->selectionModel()->selectedRows().at(0).row();
     if (pActivateButton->isEnabled())
     {
-        if (mListOfTasks.at(mSelectedIndex).mScheduleState == ScheduledTask::STATE_ACTIVE)
+        if (mListOfTasks.at(selectedIndex).mScheduleState == ScheduledTask::STATE_ACTIVE)
         {
-            mListOfTasks[mSelectedIndex].setState(ScheduledTask::STATE_INACTIVE);
+            mListOfTasks[selectedIndex].setState(ScheduledTask::STATE_INACTIVE);
         }
         else
         {
-            mListOfTasks[mSelectedIndex].setState(ScheduledTask::STATE_ACTIVE);
+            mListOfTasks[selectedIndex].setState(ScheduledTask::STATE_ACTIVE);
         }
-        updateActivateButton(mSelectedIndex);
-        QModelIndex currentIndex = createIndex(mSelectedIndex, 0);
+        updateActivateButton(selectedIndex);
+        QModelIndex currentIndex = createIndex(selectedIndex, 0);
         emit dataChanged(currentIndex,currentIndex);
     }
 }

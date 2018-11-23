@@ -29,7 +29,6 @@ private:
     QPushButton* pAddButton;
     QPushButton* pRemoveButton;
     QTimer schedulerTimer;
-    int mSelectedIndex;
     AddScheduledTaskDialog* pAddScheduledTaskDialog;
 
     void addScheduledTask(ScheduledTask inputTask);
