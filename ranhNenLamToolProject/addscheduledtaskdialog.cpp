@@ -13,7 +13,6 @@ AddScheduledTaskDialog::AddScheduledTaskDialog(QWidget *parent) :
     ui->setupUi(this);
     ui->actionCombobox->addItem(ACTION_COMBOBOX_OPEN_STRING);
     ui->actionCombobox->addItem(ACTION_COMBOBOX_CLOSE_STRING);
-    this->setAttribute(Qt::WA_DeleteOnClose, false);
 }
 
 AddScheduledTaskDialog::~AddScheduledTaskDialog()
@@ -26,23 +25,14 @@ void AddScheduledTaskDialog::on_buttonBox_accepted()
     ScheduledTask::scheduledAction_t scheduledAction = ScheduledTask::ACTION_OPEN;
     QTime scheduledTime = QTime(ui->timeTimeEdit->time());
     QString selectedApplication = ui->applicationLineEdit->text();
-    emit(newTaskAdded(ScheduledTask(QTime(scheduledTime.hour(),
-                                          scheduledTime.minute(),
-                                          scheduledTime.second()),
-                                    selectedApplication,
-                                    scheduledAction)));
-}
-
-ScheduledTask AddScheduledTaskDialog::getNewScheduledTask()
-{
-    return ScheduledTask(mLastSelectedTime, mLastSelectedApplication, mLastSelectedAction);
-}
-
-void AddScheduledTaskDialog::getAllData(QTime& time, QString &appString, ScheduledTask::scheduledAction_t &action)
-{
-    time = mLastSelectedTime;
-    appString = mLastSelectedApplication;
-    action = mLastSelectedAction;
+    if (selectedApplication != "")
+    {
+        emit(newTaskAdded(ScheduledTask(QTime(scheduledTime.hour(),
+                                              scheduledTime.minute(),
+                                              scheduledTime.second()),
+                                        selectedApplication,
+                                        scheduledAction)));
+    }
 }
 
 void AddScheduledTaskDialog::on_browseButton_clicked()

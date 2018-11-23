@@ -23,9 +23,6 @@ private slots:
     void on_browseButton_clicked();
 
 private:
-    QTime mLastSelectedTime;
-    QString mLastSelectedApplication;
-    ScheduledTask::scheduledAction_t mLastSelectedAction;
     Ui::AddScheduledTaskDialog *ui;
 
 signals:
