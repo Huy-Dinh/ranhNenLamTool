@@ -40,6 +40,8 @@ ScheduleTasksRunner::ScheduleTasksRunner(QObject *parent,
         pRemoveButton->setEnabled(false);
     }
     connect(pAddScheduledTaskDialog, SIGNAL(newTaskAdded(ScheduledTask)), this, SLOT(newTaskAdded(ScheduledTask)));
+    connect(&schedulerTimer, SIGNAL(timeout()), this, SLOT(cyclicTaskRunner()));
+    schedulerTimer.start(1000);
 }
 
 ScheduleTasksRunner::~ScheduleTasksRunner()
@@ -161,4 +163,12 @@ void ScheduleTasksRunner::newTaskAdded(ScheduledTask newTask)
     beginInsertRows(QModelIndex(), mListOfTasks.count(),mListOfTasks.count());
     mListOfTasks.append(newTask);
     endInsertRows();
+}
+
+void ScheduleTasksRunner::cyclicTaskRunner()
+{
+    for (int i = 0; i < mListOfTasks.count(); ++i)
+    {
+        mListOfTasks[i].run();
+    }
 }
