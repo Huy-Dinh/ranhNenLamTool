@@ -1,10 +1,13 @@
 #include "addscheduledtaskdialog.h"
 #include "ui_addscheduledtaskdialog.h"
 #include <QFileDialog>
+#include <QString>
 #include "scheduledtask.h"
 
 #define ACTION_COMBOBOX_OPEN_STRING     "Open"
 #define ACTION_COMBOBOX_CLOSE_STRING    "Close"
+
+const static QString fileTypeString = "Executable (*.exe, *.EXE)";
 
 AddScheduledTaskDialog::AddScheduledTaskDialog(QWidget *parent) :
     QDialog(parent),
@@ -38,6 +41,7 @@ void AddScheduledTaskDialog::on_buttonBox_accepted()
 void AddScheduledTaskDialog::on_browseButton_clicked()
 {
     QFileDialog fileDialog;
+    fileDialog.setNameFilter(fileTypeString);
     if (fileDialog.exec())
     {
         QString fileLocationText = fileDialog.selectedFiles().at(0);
