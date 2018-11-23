@@ -4,8 +4,7 @@
 #include <QMainWindow>
 #include <QModelIndexList>
 #include "profilelistmodel.h"
-
-#include <windows.h>
+#include "profiledetaildialog.h"
 
 namespace Ui {
 class ranhNenLamMainWindow;
@@ -45,23 +44,6 @@ private slots:
 private:
     Ui::ranhNenLamMainWindow *ui;
     ProfileListModel *p_model;
-};
-
-struct LVITEM
-{
-   int mask;
-   int iItem;
-   int iSubItem;
-   int state;
-   int stateMask;
-   intptr_t pszText; // string
-   int cchTextMax;
-   int iImage;
-   intptr_t lParam;
-   int iIndent;
-   int iGroupId;
-   int cColumns;
-   intptr_t puColumns;
 };
 
 #endif // RANHNENLAMMAINWINDOW_H

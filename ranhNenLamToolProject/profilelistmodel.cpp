@@ -1,16 +1,30 @@
 #include "profilelistmodel.h"
 #include <QHash>
 
-ProfileListModel::ProfileListModel(QObject *parent)
+ProfileListModel::ProfileListModel(QObject *parent, QComboBox* p_combobox, QPushButton* p_activate, QPushButton* p_add, QPushButton* p_remove, QPushButton* p_edit)
     :QAbstractListModel (parent)
 {
     // Create dummy data for the list
-   ProfileObject *first = new ProfileObject(QString("Study mode"), QString("Khoi"));
-   ProfileObject *second = new ProfileObject(QString("Play mode"), QString("Huy"));
-   ProfileObject *third = new ProfileObject(QString("Porn mode"), QString("Dat"));
+   ProfileObject *first = new ProfileObject(QString("Study mode"), black);
+   ProfileObject *second = new ProfileObject(QString("Play mode"), black);
+   ProfileObject *third = new ProfileObject(QString("Porn mode"), black);
    p_items.append(first);
    p_items.append(second);
    p_items.append(third);
+
+   ProfileCombobox = p_combobox;
+   ProfileAddButton = p_add;
+   ProfileRemoveButton = p_remove;
+   ProfileEditButton = p_edit;
+   ProfileActivateButton = p_activate;
+   //ProfileDetailDialog = p_dialog;
+   ProfileCombobox->setModel(this);
+
+   connect(ProfileCombobox,SIGNAL(currentIndexChanged(const QString)),this,SLOT(on_profileComboBox_currentIndexChanged(const QString)));
+   connect(ProfileAddButton,SIGNAL(clicked()),this,SLOT(on_profileAddButton_clicked()));
+   connect(ProfileRemoveButton,SIGNAL(clicked()),this,SLOT(on_profileRemoveButton_clicked()));
+   connect(ProfileActivateButton,SIGNAL(clicked()),this,SLOT(on_profileActivateButton_clicked()));
+   connect(ProfileEditButton,SIGNAL(clicked()),this,SLOT(on_profileEditButton_clicked()));
 }
 
 int ProfileListModel::rowCount(const QModelIndex & /* parent */) const
@@ -39,8 +53,6 @@ QVariant ProfileListModel::data(const QModelIndex &index,
         if(dobj->checkActivated()) {return QVariant::fromValue(dobj->profileName + " - Activated");} // The default display role now displays the first name as well
     case NameRole:
         return QVariant::fromValue(dobj->profileName);
-    case OwnerRole:
-        return QVariant::fromValue(dobj->profileOwner);
     case IDRole:
         return QVariant::fromValue(dobj->profileID);
     default:
@@ -51,10 +63,7 @@ QVariant ProfileListModel::data(const QModelIndex &index,
 
 void ProfileListModel::toggleActivation(int id){
     for(int index = 0; index < p_items.count(); index++){
-        if (p_items[index]->profileID==id && !p_items[index]->checkActivated())
-            p_items[index]->activate();
-        else
-            p_items[index]->deactivate();
+        p_items[index]->toggleActivation(id);
     }
 }
 
@@ -83,11 +92,40 @@ QList<ProfileObject*> ProfileListModel::getProfilebyName(QString name){
     return result;
 }
 
-QList<ProfileObject*> ProfileListModel::getProfilebyOwner(QString owner){
-    QList<ProfileObject*> result;
-    for(int index = 0; index < p_items.count(); index++){
-        if (p_items[index]->profileName.contains(owner))
-            result.append(p_items[index]);
-    }
-    return result;
+
+
+void ProfileListModel::on_profileComboBox_currentIndexChanged(const QString &arg1)
+{
+    if(arg1.contains("Activated")) ProfileActivateButton->setText("Deactivate");
+    else ProfileActivateButton->setText("Activate");
+    ProfileActivateButton->update();
 }
+
+void ProfileListModel::on_profileRemoveButton_clicked()
+{
+    int id = ProfileCombobox->itemData(ProfileCombobox->currentIndex(),this->IDRole).toInt();
+    this->removeProfile(id);
+    ProfileCombobox->update();
+}
+
+void ProfileListModel::on_profileAddButton_clicked()
+{
+    ProfileDialog.show();
+}
+
+void ProfileListModel::on_profileEditButton_clicked()
+{
+
+}
+
+void ProfileListModel::on_profileActivateButton_clicked()
+{
+    int id = ProfileCombobox->itemData(ProfileCombobox->currentIndex(),this->IDRole).toInt();
+    this->toggleActivation(id);
+
+    if(ProfileCombobox->currentText().contains("Activated")) ProfileActivateButton->setText("Deactivate");
+    else ProfileActivateButton->setText("Activate");
+    ProfileActivateButton->update();
+    ProfileCombobox->update();
+}
+
