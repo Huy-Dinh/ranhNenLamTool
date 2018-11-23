@@ -8,20 +8,20 @@
 #include <QListView>
 #include <QPushButton>
 #include <QTimer>
+#include <addscheduledtaskdialog.h>
 
 class ScheduleTasksRunner : public QAbstractListModel
 {
     Q_OBJECT
 public:
-    ScheduleTasksRunner(QObject *parent = NULL,
-                        QListView *itemView = NULL,
-                        QPushButton *ActivateButton = NULL,
-                        QPushButton *AddButton = NULL,
-                        QPushButton *RemoveButton = NULL);
+    ScheduleTasksRunner(QObject *parent = nullptr,
+                        QAbstractItemView *itemView = nullptr,
+                        QPushButton *ActivateButton = nullptr,
+                        QPushButton *AddButton = nullptr,
+                        QPushButton *RemoveButton = nullptr);
+    ~ScheduleTasksRunner();
     int rowCount(const QModelIndex &parent = QModelIndex()) const;
     QVariant data(const QModelIndex &index, int role) const;
-    void addScheduledTask(ScheduledTask inputTask);
-    void removeTaskAt(int taskIndex);
 private:
     QList<ScheduledTask> mListOfTasks;
     QAbstractItemView* pItemView;
@@ -29,8 +29,14 @@ private:
     QPushButton* pAddButton;
     QPushButton* pRemoveButton;
     QTimer schedulerTimer;
+    int mSelectedIndex;
+    AddScheduledTaskDialog* pAddScheduledTaskDialog;
+
+    void addScheduledTask(ScheduledTask inputTask);
+    void removeTaskAt(int taskIndex);
+    void updateActivateButton(int updateIndex);
 public slots:
-    void viewIndexMoved(const QModelIndexList &indexes);
+    void selectedIndexChange(const QModelIndex & current, const QModelIndex & previous);
     void activateButtonClicked();
     void addButtonClicked();
     void removeButtonClicked();
