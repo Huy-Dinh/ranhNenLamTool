@@ -39,6 +39,7 @@ ranhNenLamMainWindow::ranhNenLamMainWindow(QWidget *parent) :
     ui(new Ui::ranhNenLamMainWindow)
 {
     ui->setupUi(this);
+    p_model = new ProfileListModel(this, ui->profileComboBox, ui->profileActivateButton, ui->profileAddButton, ui->profileRemoveButton, ui->profileEditButton);
     pScheduleTaskRunner = new ScheduleTasksRunner(this, ui->scheduledTaskListView,
                                                   ui->schedulerToggleButton,
                                                   ui->schedulerAddButton,
@@ -56,7 +57,6 @@ ranhNenLamMainWindow::~ranhNenLamMainWindow()
  ***********************************************/
 void ranhNenLamMainWindow::on_profileComboBox_currentIndexChanged(const QString &arg1)
 {
-
 }
 
 void ranhNenLamMainWindow::on_profileAddButton_clicked()

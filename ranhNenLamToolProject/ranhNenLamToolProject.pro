@@ -29,17 +29,24 @@ SOURCES += \
         ranhnenlammainwindow.cpp \
     scheduledtask.cpp \
     addscheduledtaskdialog.cpp \
-    scheduletasksrunner.cpp
+    scheduletasksrunner.cpp \
+    profilelistmodel.cpp \
+    profileobject.cpp \
+    profiledetaildialog.cpp
 
 HEADERS += \
         ranhnenlammainwindow.h \
     scheduledtask.h \
     addscheduledtaskdialog.h \
-    scheduletasksrunner.h
+    scheduletasksrunner.h \
+    profilelistmodel.h \
+    profileobject.h \
+    profiledetaildialog.h
 
 FORMS += \
         ranhnenlammainwindow.ui \
     addscheduledtaskdialog.ui
+    profiledetaildialog.ui
 LIBS += -luser32
 
 # Default rules for deployment.

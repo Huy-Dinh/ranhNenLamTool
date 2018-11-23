@@ -9,6 +9,8 @@
 #include "qdebug.h"
 #include "tchar.h"
 #include <scheduletasksrunner.h>
+#include "profilelistmodel.h"
+#include "profiledetaildialog.h"
 
 namespace Ui {
 class ranhNenLamMainWindow;
@@ -49,6 +51,7 @@ private:
     Ui::ranhNenLamMainWindow *ui;
     HWND handleDesktopWindow;
     ScheduleTasksRunner *pScheduleTaskRunner;
+    ProfileListModel *p_model;
 };
 
 #endif // RANHNENLAMMAINWINDOW_H
