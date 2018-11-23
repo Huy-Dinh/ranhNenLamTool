@@ -29,16 +29,17 @@ SOURCES += \
         ranhnenlammainwindow.cpp \
     profilelistmodel.cpp \
     profileobject.cpp \
-    groupicon.cpp
+    profiledetaildialog.cpp
 
 HEADERS += \
         ranhnenlammainwindow.h \
     profilelistmodel.h \
     profileobject.h \
-    groupicon.h
+    profiledetaildialog.h
 
 FORMS += \
-        ranhnenlammainwindow.ui
+        ranhnenlammainwindow.ui \
+    profiledetaildialog.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

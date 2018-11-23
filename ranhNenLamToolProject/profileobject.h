@@ -8,14 +8,18 @@ private:
     bool isActivated;
     static int incrementID;
 public:
-    ProfileObject(const QString &name, const QString &owner);
+    ProfileObject(const QString &name, int type);
 
+    enum BanType{
+        black = 0,
+        white = 1
+    };
+
+    int listType;
     QString profileName;
-    QString profileOwner;
     int profileID;
 
     bool checkActivated(){return isActivated;}
-    void activate(){isActivated=true;}
-    void deactivate(){isActivated=false;}
+    void toggleActivation(int id);
 };
 #endif // PROFILEOBJECT_H
