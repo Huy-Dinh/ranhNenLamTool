@@ -45,7 +45,7 @@ HEADERS += \
 
 FORMS += \
         ranhnenlammainwindow.ui \
-    addscheduledtaskdialog.ui
+    addscheduledtaskdialog.ui \
     profiledetaildialog.ui
 LIBS += -luser32
 
