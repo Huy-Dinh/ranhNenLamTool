@@ -100,6 +100,7 @@ void ScheduleTasksRunner::selectedIndexChange(const QModelIndex & current, const
 
 void ScheduleTasksRunner::activateButtonClicked()
 {
+    mSelectedIndex = pItemView->selectionModel()->selectedRows().at(0).row();
     if (pActivateButton->isEnabled())
     {
         if (mListOfTasks.at(mSelectedIndex).mScheduleState == ScheduledTask::STATE_ACTIVE)
@@ -111,6 +112,8 @@ void ScheduleTasksRunner::activateButtonClicked()
             mListOfTasks[mSelectedIndex].setState(ScheduledTask::STATE_ACTIVE);
         }
         updateActivateButton(mSelectedIndex);
+        QModelIndex currentIndex = createIndex(mSelectedIndex, 0);
+        emit dataChanged(currentIndex,currentIndex);
     }
 }
 
