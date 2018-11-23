@@ -40,6 +40,7 @@ public slots:
     void activateButtonClicked();
     void addButtonClicked();
     void removeButtonClicked();
+    void newTaskAdded(ScheduledTask newTask);
 };
 
 #endif // SCHEDULEDTASKSRUNNER_H

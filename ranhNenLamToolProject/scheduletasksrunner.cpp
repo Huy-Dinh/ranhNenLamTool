@@ -39,6 +39,7 @@ ScheduleTasksRunner::ScheduleTasksRunner(QObject *parent,
         connect(pRemoveButton, SIGNAL(clicked()), this, SLOT(removeButtonClicked()));
         pRemoveButton->setEnabled(false);
     }
+    connect(pAddScheduledTaskDialog, SIGNAL(newTaskAdded(ScheduledTask)), this, SLOT(newTaskAdded(ScheduledTask)));
 }
 
 ScheduleTasksRunner::~ScheduleTasksRunner()
@@ -115,16 +116,7 @@ void ScheduleTasksRunner::activateButtonClicked()
 
 void ScheduleTasksRunner::addButtonClicked()
 {
-    if (pAddScheduledTaskDialog->exec() == QDialog::Accepted)
-    {
-        beginInsertRows(QModelIndex(), mListOfTasks.count(),mListOfTasks.count());
-        mListOfTasks.append(ScheduledTask(QTime(1, 2, 3), "E:\\7554\\7554.exe", ScheduledTask::ACTION_OPEN));
-        endInsertRows();
-    }
-    else
-    {
-
-    }
+    pAddScheduledTaskDialog->exec();
 }
 
 void ScheduleTasksRunner::removeButtonClicked()
@@ -159,4 +151,11 @@ void ScheduleTasksRunner::updateActivateButton(int updateIndex)
             pActivateButton->setText(ACT_BUTTON_ACT_STRING);
         }
     }
+}
+
+void ScheduleTasksRunner::newTaskAdded(ScheduledTask newTask)
+{
+    beginInsertRows(QModelIndex(), mListOfTasks.count(),mListOfTasks.count());
+    mListOfTasks.append(newTask);
+    endInsertRows();
 }

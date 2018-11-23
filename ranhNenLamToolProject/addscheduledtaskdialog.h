@@ -27,6 +27,9 @@ private:
     QString mLastSelectedApplication;
     ScheduledTask::scheduledAction_t mLastSelectedAction;
     Ui::AddScheduledTaskDialog *ui;
+
+signals:
+    void newTaskAdded(ScheduledTask newTask);
 };
 
 #endif // ADDSCHEDULEDTASKDIALOG_H

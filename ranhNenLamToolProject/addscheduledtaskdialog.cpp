@@ -23,10 +23,14 @@ AddScheduledTaskDialog::~AddScheduledTaskDialog()
 
 void AddScheduledTaskDialog::on_buttonBox_accepted()
 {
-    mLastSelectedAction = ScheduledTask::ACTION_OPEN;
-    mLastSelectedTime = ui->timeTimeEdit->time();
-    mLastSelectedApplication = ui->applicationLineEdit->text();
-    this->accept();
+    ScheduledTask::scheduledAction_t scheduledAction = ScheduledTask::ACTION_OPEN;
+    QTime scheduledTime = QTime(ui->timeTimeEdit->time());
+    QString selectedApplication = ui->applicationLineEdit->text();
+    emit(newTaskAdded(ScheduledTask(QTime(scheduledTime.hour(),
+                                          scheduledTime.minute(),
+                                          scheduledTime.second()),
+                                    selectedApplication,
+                                    scheduledAction)));
 }
 
 ScheduledTask AddScheduledTaskDialog::getNewScheduledTask()
@@ -45,5 +49,9 @@ void AddScheduledTaskDialog::on_browseButton_clicked()
 {
     QFileDialog fileDialog;
     if (fileDialog.exec())
-        ui->applicationLineEdit->setText(fileDialog.selectedFiles().at(0));
+    {
+        QString fileLocationText = fileDialog.selectedFiles().at(0);
+        fileLocationText.replace("/", "\\");
+        ui->applicationLineEdit->setText(fileLocationText);
+    }
 }
