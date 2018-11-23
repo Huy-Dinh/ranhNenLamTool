@@ -1,5 +1,7 @@
 #include "ranhnenlammainwindow.h"
 #include "ui_ranhnenlammainwindow.h"
+#include <QStringListModel>
+#include <QStringList>
 
 HWND GetDesktopListViewHWND()
 {
@@ -37,13 +39,17 @@ ranhNenLamMainWindow::ranhNenLamMainWindow(QWidget *parent) :
     ui(new Ui::ranhNenLamMainWindow)
 {
     ui->setupUi(this);
+    pScheduleTaskRunner = new ScheduleTasksRunner(this, ui->scheduledTaskListView,
+                                                  ui->schedulerToggleButton,
+                                                  ui->schedulerAddButton,
+                                                  ui->schedulerRemoveButton);
 }
 
 ranhNenLamMainWindow::~ranhNenLamMainWindow()
 {
     delete ui;
+    delete pScheduleTaskRunner;
 }
-
 
 /************************************************
  * Profile Selector UI Events

@@ -26,13 +26,20 @@ CONFIG += c++11
 
 SOURCES += \
         main.cpp \
-        ranhnenlammainwindow.cpp
+        ranhnenlammainwindow.cpp \
+    scheduledtask.cpp \
+    addscheduledtaskdialog.cpp \
+    scheduletasksrunner.cpp
 
 HEADERS += \
-        ranhnenlammainwindow.h
+        ranhnenlammainwindow.h \
+    scheduledtask.h \
+    addscheduledtaskdialog.h \
+    scheduletasksrunner.h
 
 FORMS += \
-        ranhnenlammainwindow.ui
+        ranhnenlammainwindow.ui \
+    addscheduledtaskdialog.ui
 LIBS += -luser32
 
 # Default rules for deployment.

@@ -8,6 +8,8 @@
 #include "CommCtrl.h"
 #include "qdebug.h"
 #include "tchar.h"
+#include <scheduletasksrunner.h>
+
 namespace Ui {
 class ranhNenLamMainWindow;
 }
@@ -46,6 +48,7 @@ private slots:
 private:
     Ui::ranhNenLamMainWindow *ui;
     HWND handleDesktopWindow;
+    ScheduleTasksRunner *pScheduleTaskRunner;
 };
 
 #endif // RANHNENLAMMAINWINDOW_H
