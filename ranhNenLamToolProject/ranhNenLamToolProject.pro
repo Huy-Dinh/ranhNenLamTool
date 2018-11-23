@@ -33,6 +33,7 @@ HEADERS += \
 
 FORMS += \
         ranhnenlammainwindow.ui
+LIBS += -luser32
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
