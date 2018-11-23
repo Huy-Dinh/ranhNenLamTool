@@ -8,13 +8,17 @@ ranhNenLamMainWindow::ranhNenLamMainWindow(QWidget *parent) :
     ui(new Ui::ranhNenLamMainWindow)
 {
     ui->setupUi(this);
+    pScheduleTaskRunner = new ScheduleTasksRunner(this, ui->scheduledTaskListView,
+                                                  ui->schedulerToggleButton,
+                                                  ui->schedulerAddButton,
+                                                  ui->schedulerRemoveButton);
 }
 
 ranhNenLamMainWindow::~ranhNenLamMainWindow()
 {
     delete ui;
+    delete pScheduleTaskRunner;
 }
-
 
 /************************************************
  * Profile Selector UI Events
@@ -63,6 +67,7 @@ void ranhNenLamMainWindow::on_iconGroupButton_clicked()
 
 void ranhNenLamMainWindow::on_schedulerAddButton_clicked()
 {
+
 }
 
 void ranhNenLamMainWindow::on_schedulerRemoveButton_clicked()
