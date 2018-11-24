@@ -32,7 +32,7 @@ void AddScheduledTaskDialog::on_browseButton_clicked()
     {
         QString fileLocationText = fileDialog.selectedFiles().at(0);
         fileLocationText.replace("/", "\\");
-        ui->applicationLineEdit->setText(fileLocationText);
+        ui->applicationTextEdit->setText(fileLocationText);
     }
 }
 
@@ -44,10 +44,12 @@ void AddScheduledTaskDialog::on_scheduleButton_clicked()
         scheduledAction = ScheduledTask::ACTION_CLOSE;
     }
     QTime scheduledTime = ui->timeTimeEdit->time();
-    QString selectedApplication = ui->applicationLineEdit->text();
+    QString selectedApplication = ui->applicationTextEdit->toPlainText();
     if (selectedApplication != "")
     {
-        emit(newTaskAdded(ScheduledTask(scheduledTime,
+        emit(newTaskAdded(ScheduledTask(QTime(scheduledTime.hour(),
+                                              scheduledTime.minute(),
+                                              scheduledTime.second()),
                                         selectedApplication,
                                         scheduledAction)));
         accept();

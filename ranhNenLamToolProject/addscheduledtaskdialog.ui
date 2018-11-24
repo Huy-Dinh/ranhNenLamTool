@@ -17,9 +17,9 @@
    </sizepolicy>
   </property>
   <property name="windowTitle">
-   <string>Dialog</string>
+   <string>Add scheduled task</string>
   </property>
-  <layout class="QVBoxLayout" name="verticalLayout">
+  <layout class="QVBoxLayout" name="verticalLayout" stretch="1,2,1">
    <item>
     <layout class="QHBoxLayout" name="timeActionLayout">
      <item>
@@ -36,7 +36,11 @@
       </widget>
      </item>
      <item>
-      <widget class="QTimeEdit" name="timeTimeEdit"/>
+      <widget class="QTimeEdit" name="timeTimeEdit">
+       <property name="displayFormat">
+        <string>hh:mm:ss</string>
+       </property>
+      </widget>
      </item>
      <item>
       <widget class="QLabel" name="actionLabel">
@@ -66,19 +70,22 @@
       </widget>
      </item>
      <item>
-      <widget class="QLineEdit" name="applicationLineEdit">
+      <widget class="QTextEdit" name="applicationTextEdit">
        <property name="enabled">
         <bool>false</bool>
-       </property>
-       <property name="readOnly">
-        <bool>true</bool>
        </property>
       </widget>
      </item>
      <item>
       <widget class="QPushButton" name="browseButton">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
        <property name="text">
-        <string>Browse</string>
+        <string>Browse...</string>
        </property>
       </widget>
      </item>
