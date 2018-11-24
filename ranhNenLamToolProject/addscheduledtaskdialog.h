@@ -19,9 +19,9 @@ public:
     void getAllData(QTime& time, QString &appString, ScheduledTask::scheduledAction_t &action);
 
 private slots:
-    void on_buttonBox_accepted();
     void on_browseButton_clicked();
-    void accept();
+    void on_scheduleButton_clicked();
+    void on_cancelButton_clicked();
 
 private:
     Ui::AddScheduledTaskDialog *ui;

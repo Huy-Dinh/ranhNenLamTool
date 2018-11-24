@@ -24,38 +24,6 @@ AddScheduledTaskDialog::~AddScheduledTaskDialog()
     delete ui;
 }
 
-void AddScheduledTaskDialog::accept()
-{
-    QString selectedApplication = ui->applicationLineEdit->text();
-    if (selectedApplication == "")
-    {
-        QMessageBox::warning(nullptr, "Warning", "No application selected");
-    }
-    else
-    {
-        QDialog::accept();
-    }
-}
-
-void AddScheduledTaskDialog::on_buttonBox_accepted()
-{
-    ScheduledTask::scheduledAction_t scheduledAction = ScheduledTask::ACTION_OPEN;
-    if (ui->actionCombobox->currentText() == ACTION_COMBOBOX_CLOSE_STRING)
-    {
-        scheduledAction = ScheduledTask::ACTION_CLOSE;
-    }
-    QTime scheduledTime = QTime(ui->timeTimeEdit->time());
-    QString selectedApplication = ui->applicationLineEdit->text();
-    if (selectedApplication != "")
-    {
-        emit(newTaskAdded(ScheduledTask(QTime(scheduledTime.hour(),
-                                              scheduledTime.minute(),
-                                              scheduledTime.second()),
-                                        selectedApplication,
-                                        scheduledAction)));
-    }
-}
-
 void AddScheduledTaskDialog::on_browseButton_clicked()
 {
     QFileDialog fileDialog;
@@ -66,4 +34,31 @@ void AddScheduledTaskDialog::on_browseButton_clicked()
         fileLocationText.replace("/", "\\");
         ui->applicationLineEdit->setText(fileLocationText);
     }
+}
+
+void AddScheduledTaskDialog::on_scheduleButton_clicked()
+{
+    ScheduledTask::scheduledAction_t scheduledAction = ScheduledTask::ACTION_OPEN;
+    if (ui->actionCombobox->currentText() == ACTION_COMBOBOX_CLOSE_STRING)
+    {
+        scheduledAction = ScheduledTask::ACTION_CLOSE;
+    }
+    QTime scheduledTime = ui->timeTimeEdit->time();
+    QString selectedApplication = ui->applicationLineEdit->text();
+    if (selectedApplication != "")
+    {
+        emit(newTaskAdded(ScheduledTask(scheduledTime,
+                                        selectedApplication,
+                                        scheduledAction)));
+        accept();
+    }
+    else
+    {
+        QMessageBox::warning(nullptr, "Warning", "No application selected");
+    }
+}
+
+void AddScheduledTaskDialog::on_cancelButton_clicked()
+{
+    reject();
 }
