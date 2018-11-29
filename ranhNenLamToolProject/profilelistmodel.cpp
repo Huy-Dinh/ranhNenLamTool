@@ -1,5 +1,6 @@
 #include "profilelistmodel.h"
 #include <QHash>
+#include <QMessageBox>
 
 ProfileListModel::ProfileListModel(QObject *parent, QComboBox* p_combobox, QPushButton* p_activate, QPushButton* p_add, QPushButton* p_remove, QPushButton* p_edit)
     :QAbstractListModel (parent)
@@ -8,16 +9,15 @@ ProfileListModel::ProfileListModel(QObject *parent, QComboBox* p_combobox, QPush
    ProfileObject *first = new ProfileObject(QString("Study mode"), black);
    ProfileObject *second = new ProfileObject(QString("Play mode"), black);
    ProfileObject *third = new ProfileObject(QString("Porn mode"), black);
-   p_items.append(first);
-   p_items.append(second);
-   p_items.append(third);
+   p_items.append(*first);
+   p_items.append(*second);
+   p_items.append(*third);
 
    ProfileCombobox = p_combobox;
    ProfileAddButton = p_add;
    ProfileRemoveButton = p_remove;
    ProfileEditButton = p_edit;
    ProfileActivateButton = p_activate;
-   //ProfileDetailDialog = p_dialog;
    ProfileCombobox->setModel(this);
 
    connect(ProfileCombobox,SIGNAL(currentIndexChanged(const QString)),this,SLOT(on_profileComboBox_currentIndexChanged(const QString)));
@@ -25,6 +25,8 @@ ProfileListModel::ProfileListModel(QObject *parent, QComboBox* p_combobox, QPush
    connect(ProfileRemoveButton,SIGNAL(clicked()),this,SLOT(on_profileRemoveButton_clicked()));
    connect(ProfileActivateButton,SIGNAL(clicked()),this,SLOT(on_profileActivateButton_clicked()));
    connect(ProfileEditButton,SIGNAL(clicked()),this,SLOT(on_profileEditButton_clicked()));
+
+
 }
 
 int ProfileListModel::rowCount(const QModelIndex & /* parent */) const
@@ -35,8 +37,6 @@ int ProfileListModel::rowCount(const QModelIndex & /* parent */) const
 QHash<int, QByteArray> ProfileListModel::roleNames() const {
     QHash<int, QByteArray> roles;
     roles[NameRole] = "name";
-    roles[OwnerRole] = "owner";
-    roles[IDRole] = "ID";
     return roles;
 }
 
@@ -47,47 +47,59 @@ QVariant ProfileListModel::data(const QModelIndex &index,
     if (index.row() > (p_items.size()-1) )
         return QVariant();
 
-    ProfileObject *dobj = p_items.at(index.row());
+    ProfileObject dobj = p_items.at(index.row());
     switch (role) {
     case Qt::DisplayRole:
-        if(dobj->checkActivated()) {return QVariant::fromValue(dobj->profileName + " - Activated");} // The default display role now displays the first name as well
+        if(dobj.checkActivated()) {return QVariant::fromValue(dobj.profileName + " - Activated");} // The default display role now displays the first name as well
     case NameRole:
-        return QVariant::fromValue(dobj->profileName);
-    case IDRole:
-        return QVariant::fromValue(dobj->profileID);
+        return QVariant::fromValue(dobj.profileName);
     default:
         return QVariant();
     }
 }
 
-
-void ProfileListModel::toggleActivation(int id){
-    for(int index = 0; index < p_items.count(); index++){
-        p_items[index]->toggleActivation(id);
-    }
-}
-
-void ProfileListModel::removeProfile(int id){
-    for(int index = 0; index < p_items.count(); index++){
-        if (p_items[index]->profileID==id){
-            delete p_items[index];
-            p_items.removeAt(index);
+bool ProfileListModel::addProfile(ProfileObject* p)
+ {
+    for(int i = 0 ; i < p_items.count(); i++){
+        if(p_items[i].profileName == p->profileName){
+            QMessageBox::warning(nullptr,"Existed profile name","Please input another profile name");
+            return false;
         }
     }
+     beginInsertRows(QModelIndex(), this->rowCount(), this->rowCount() + 1);
+     p_items.append(*p);
+     endInsertRows();
+     return true;
+ }
+
+bool ProfileListModel::setProfile(int pos, ProfileObject* pnew)
+ {
+     p_items.replace(pos, *pnew);
+     //emit(dataChanged(pos,pos));
+     return true;
+ }
+
+void ProfileListModel::toggleActivation(int pos){
+    for(int index = 0; index < p_items.count(); index++){
+        if(index == pos && !p_items[index].checkActivated())
+            p_items[index].activate();
+        else
+            p_items[index].deactivate();
+    }
 }
 
-ProfileObject* ProfileListModel::getProfilebyID(int id){
-    for(int index = 0; index < p_items.count(); index++){
-        if (p_items[index]->profileID==id)
-            return p_items[index];
-    }
+bool ProfileListModel::removeProfile(int pos){
+    beginRemoveRows(QModelIndex(), pos, pos);
+    p_items.removeAt(pos);
+    endRemoveRows();
+    return true;
 }
 
 QList<ProfileObject*> ProfileListModel::getProfilebyName(QString name){
     QList<ProfileObject*> result;
     for(int index = 0; index < p_items.count(); index++){
-        if (p_items[index]->profileName.contains(name))
-            result.append(p_items[index]);
+        if (p_items[index].profileName.contains(name))
+            result.append(&p_items[index]);
     }
     return result;
 }
@@ -96,6 +108,7 @@ QList<ProfileObject*> ProfileListModel::getProfilebyName(QString name){
 
 void ProfileListModel::on_profileComboBox_currentIndexChanged(const QString &arg1)
 {
+    currentPos = ProfileCombobox->currentIndex();
     if(arg1.contains("Activated")) ProfileActivateButton->setText("Deactivate");
     else ProfileActivateButton->setText("Activate");
     ProfileActivateButton->update();
@@ -103,25 +116,31 @@ void ProfileListModel::on_profileComboBox_currentIndexChanged(const QString &arg
 
 void ProfileListModel::on_profileRemoveButton_clicked()
 {
-    int id = ProfileCombobox->itemData(ProfileCombobox->currentIndex(),this->IDRole).toInt();
-    this->removeProfile(id);
+    int pos = ProfileCombobox->currentIndex();
+    this->removeProfile(pos);
+    ProfileCombobox->setCurrentIndex(pos-1);
     ProfileCombobox->update();
 }
 
 void ProfileListModel::on_profileAddButton_clicked()
 {
-    ProfileDialog.show();
+    ProfileDetailDialog ProfileDialog;
+    connect(&ProfileDialog,SIGNAL(profileCreated(ProfileObject*,bool)),this,SLOT(on_profile_created(ProfileObject*,bool)));
+    ProfileDialog.exec();
 }
 
 void ProfileListModel::on_profileEditButton_clicked()
 {
-
+    int pos = ProfileCombobox->currentIndex();
+    ProfileDetailDialog ProfileDialog(&p_items[pos]);
+    connect(&ProfileDialog,SIGNAL(profileEdited(ProfileObject*,bool)),this,SLOT(on_profile_edited(ProfileObject*,bool)));
+    ProfileDialog.exec();
 }
 
 void ProfileListModel::on_profileActivateButton_clicked()
 {
-    int id = ProfileCombobox->itemData(ProfileCombobox->currentIndex(),this->IDRole).toInt();
-    this->toggleActivation(id);
+    int pos = ProfileCombobox->currentIndex();
+    this->toggleActivation(pos);
 
     if(ProfileCombobox->currentText().contains("Activated")) ProfileActivateButton->setText("Deactivate");
     else ProfileActivateButton->setText("Activate");
@@ -129,3 +148,15 @@ void ProfileListModel::on_profileActivateButton_clicked()
     ProfileCombobox->update();
 }
 
+
+void ProfileListModel::on_profile_created(ProfileObject* p, bool activateNow){
+    this->addProfile(p);
+    if(activateNow) p_items[p_items.count()-1].activate();
+    ProfileCombobox->update();
+}
+
+void ProfileListModel::on_profile_edited(ProfileObject* p, bool activateNow){
+    this->setProfile(currentPos,p);
+    if(activateNow) p_items[currentPos].activate();
+    ProfileCombobox->update();
+}
