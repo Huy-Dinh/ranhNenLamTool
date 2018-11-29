@@ -36,25 +36,35 @@
    <property name="geometry">
     <rect>
      <x>20</x>
-     <y>60</y>
+     <y>20</y>
      <width>641</width>
-     <height>301</height>
+     <height>341</height>
     </rect>
    </property>
    <layout class="QVBoxLayout" name="verticalLayout">
     <item>
      <layout class="QGridLayout" name="gridLayout">
-      <item row="0" column="4">
-       <widget class="QRadioButton" name="WhitelistRadioButton">
-        <property name="text">
-         <string>Blacklist</string>
-        </property>
-        <property name="checked">
+      <item row="2" column="2">
+       <widget class="QCheckBox" name="ActivateNowCheckBox">
+        <property name="enabled">
          <bool>true</bool>
+        </property>
+        <property name="text">
+         <string>Activate now</string>
         </property>
        </widget>
       </item>
-      <item row="0" column="0">
+      <item row="1" column="2">
+       <widget class="QLineEdit" name="ProfileNameEdit">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Ignored" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="0">
        <widget class="QLabel" name="ProfileNameLabel">
         <property name="sizePolicy">
          <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
@@ -68,55 +78,45 @@
        </widget>
       </item>
       <item row="1" column="4">
-       <widget class="QRadioButton" name="BlackListRadioButton">
+       <widget class="QRadioButton" name="WhitelistRadioButton">
         <property name="text">
          <string>Whitelist</string>
         </property>
+        <property name="checked">
+         <bool>false</bool>
+        </property>
        </widget>
       </item>
-      <item row="1" column="2">
-       <widget class="QCheckBox" name="ActivateNowCheckBox">
-        <property name="enabled">
+      <item row="2" column="4">
+       <widget class="QRadioButton" name="BlackListRadioButton">
+        <property name="text">
+         <string>Blacklist</string>
+        </property>
+        <property name="checked">
          <bool>true</bool>
         </property>
-        <property name="text">
-         <string>Activate now</string>
-        </property>
        </widget>
       </item>
-      <item row="0" column="2">
-       <widget class="QLineEdit" name="ProfileNameEdit">
-        <property name="sizePolicy">
-         <sizepolicy hsizetype="Ignored" vsizetype="Fixed">
-          <horstretch>0</horstretch>
-          <verstretch>0</verstretch>
-         </sizepolicy>
+      <item row="1" column="3">
+       <spacer name="horizontalSpacer">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
         </property>
-       </widget>
+        <property name="sizeType">
+         <enum>QSizePolicy::Fixed</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>40</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
       </item>
      </layout>
     </item>
     <item>
      <widget class="QTableView" name="tableView"/>
-    </item>
-   </layout>
-  </widget>
-  <widget class="QWidget" name="horizontalLayoutWidget">
-   <property name="geometry">
-    <rect>
-     <x>20</x>
-     <y>10</y>
-     <width>641</width>
-     <height>41</height>
-    </rect>
-   </property>
-   <layout class="QHBoxLayout" name="horizontalLayout">
-    <item>
-     <widget class="QLabel" name="label">
-      <property name="text">
-       <string>Adding your profile heh ?</string>
-      </property>
-     </widget>
     </item>
    </layout>
   </widget>
