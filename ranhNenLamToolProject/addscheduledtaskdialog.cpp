@@ -45,13 +45,13 @@ void AddScheduledTaskDialog::on_scheduleButton_clicked()
     }
     QTime scheduledTime = ui->timeTimeEdit->time();
     QString selectedApplication = ui->applicationTextEdit->toPlainText();
+    QString inputArguments = ui->argumentLineEdit->text();
     if (selectedApplication != "")
     {
-        emit(newTaskAdded(ScheduledTask(QTime(scheduledTime.hour(),
-                                              scheduledTime.minute(),
-                                              scheduledTime.second()),
+        emit(newTaskAdded(ScheduledTask(scheduledTime,
                                         selectedApplication,
-                                        scheduledAction)));
+                                        scheduledAction,
+                                        inputArguments)));
         accept();
     }
     else

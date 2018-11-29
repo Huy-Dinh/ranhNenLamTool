@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>702</width>
-    <height>165</height>
+    <width>763</width>
+    <height>315</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -19,7 +19,7 @@
   <property name="windowTitle">
    <string>Add scheduled task</string>
   </property>
-  <layout class="QVBoxLayout" name="verticalLayout" stretch="1,2,1">
+  <layout class="QVBoxLayout" name="verticalLayout" stretch="1,2,0,1">
    <item>
     <layout class="QHBoxLayout" name="timeActionLayout">
      <item>
@@ -88,6 +88,20 @@
         <string>Browse...</string>
        </property>
       </widget>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <layout class="QHBoxLayout" name="argumentLayout">
+     <item>
+      <widget class="QLabel" name="argumentLabel">
+       <property name="text">
+        <string>TextLabel</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLineEdit" name="lineEdit"/>
      </item>
     </layout>
    </item>
