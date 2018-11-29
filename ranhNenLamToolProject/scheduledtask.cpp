@@ -1,8 +1,9 @@
 #include "scheduledtask.h"
-ScheduledTask::ScheduledTask(QTime scheduledTime, QString fileLocation, ScheduledTask::scheduledAction_t scheduledAction)
+ScheduledTask::ScheduledTask(QTime scheduledTime, QString fileLocation, ScheduledTask::scheduledAction_t scheduledAction, QString arguments)
+    : mScheduledTime(scheduledTime.hour(), scheduledTime.minute(), scheduledTime.second())
 {
-    mScheduledTime = scheduledTime;
-    mFileLocation = "\"" + fileLocation;
+    mFileLocation = fileLocation;
+    mArguments = arguments;
     mScheduledAction = scheduledAction;
     mScheduleState = ScheduledTask::STATE_ACTIVE;
 }
@@ -26,7 +27,7 @@ void ScheduledTask::run()
             }
             else if (mScheduledAction == ScheduledTask::ACTION_OPEN)
             {
-                QProcess::startDetached(mFileLocation);
+                QProcess::startDetached("\"" + mFileLocation + "\" " + mArguments);
             }
             //Auto deactivate itself
             mScheduleState = ScheduledTask::STATE_INACTIVE;

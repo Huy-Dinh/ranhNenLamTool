@@ -26,11 +26,12 @@ public:
 private:
     QTime mScheduledTime;
     QString mFileLocation;
+    QString mArguments;
     scheduledAction_t mScheduledAction;
     scheduleState_t mScheduleState;
     QProcess *pProcess;
 public:
-    ScheduledTask(QTime scheduledTime, QString fileLocation, scheduledAction_t scheduledAction);
+    ScheduledTask(QTime scheduledTime, QString fileLocation, scheduledAction_t scheduledAction, QString arguments);
     ~ScheduledTask();
     void run();
     void setState(scheduleState_t scheduleState);
