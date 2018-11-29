@@ -2,14 +2,14 @@
 #define PROFILEOBJECT_H
 
 #include <QString>
+#include <QMetaType>
 class ProfileObject
-{
+{   
 private:
     bool isActivated;
-    static int incrementID;
+    //static int incrementID;
 public:
     ProfileObject(const QString &name, int type);
-
     enum BanType{
         black = 0,
         white = 1
@@ -17,9 +17,9 @@ public:
 
     int listType;
     QString profileName;
-    int profileID;
-
+    void activate() {isActivated=true;}
+    void deactivate(){isActivated=false;}
     bool checkActivated(){return isActivated;}
-    void toggleActivation(int id);
 };
+//Q_DECLARE_METATYPE(ProfileObject);
 #endif // PROFILEOBJECT_H
