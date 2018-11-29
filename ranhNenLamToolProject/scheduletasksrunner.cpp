@@ -15,7 +15,6 @@ ScheduleTasksRunner::ScheduleTasksRunner(QObject *parent,
     pAddButton = AddButton;
     pActivateButton = ActivateButton;
     pRemoveButton = RemoveButton;
-    pAddScheduledTaskDialog = new AddScheduledTaskDialog();
     // Set the model to the ItemView, allows the content to be displayed
     // register the slot for viewIndexMoved
     if (pItemView != nullptr)
@@ -39,7 +38,7 @@ ScheduleTasksRunner::ScheduleTasksRunner(QObject *parent,
         connect(pRemoveButton, SIGNAL(clicked()), this, SLOT(removeButtonClicked()));
         pRemoveButton->setEnabled(false);
     }
-    connect(pAddScheduledTaskDialog,
+    connect(&addScheduledTaskDialog,
             SIGNAL(newTaskAdded(const QTime&,
                                 const QString&,
                                 const ScheduledTask::scheduledAction_t&,
@@ -54,7 +53,6 @@ ScheduleTasksRunner::ScheduleTasksRunner(QObject *parent,
 
 ScheduleTasksRunner::~ScheduleTasksRunner()
 {
-    delete pAddScheduledTaskDialog;
 }
 
 int ScheduleTasksRunner::rowCount(const QModelIndex &parent) const
@@ -129,7 +127,7 @@ void ScheduleTasksRunner::activateButtonClicked()
 
 void ScheduleTasksRunner::addButtonClicked()
 {
-    pAddScheduledTaskDialog->exec();
+    addScheduledTaskDialog.exec();
 }
 
 void ScheduleTasksRunner::removeButtonClicked()
