@@ -16,7 +16,6 @@ public:
     explicit AddScheduledTaskDialog(QWidget *parent = nullptr);
     ~AddScheduledTaskDialog();
     ScheduledTask getNewScheduledTask();
-    void getAllData(QTime& time, QString &appString, ScheduledTask::scheduledAction_t &action);
 
 private slots:
     void on_browseButton_clicked();
