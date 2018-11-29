@@ -27,7 +27,10 @@ private:
     Ui::AddScheduledTaskDialog *ui;
 
 signals:
-    void newTaskAdded(ScheduledTask newTask);
+    void newTaskAdded(const QTime& time,
+                      const QString& appString,
+                      const ScheduledTask::scheduledAction_t& action,
+                      const QString& arguments);
 };
 
 #endif // ADDSCHEDULEDTASKDIALOG_H
