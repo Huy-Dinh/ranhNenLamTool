@@ -48,7 +48,23 @@
         <item>
          <layout class="QHBoxLayout" name="UpLeft2">
           <item>
-           <widget class="QComboBox" name="profileComboBox"/>
+           <widget class="QComboBox" name="profileComboBox">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="currentIndex">
+             <number>-1</number>
+            </property>
+            <property name="maxVisibleItems">
+             <number>15</number>
+            </property>
+            <property name="sizeAdjustPolicy">
+             <enum>QComboBox::AdjustToContents</enum>
+            </property>
+           </widget>
           </item>
          </layout>
         </item>

@@ -10,9 +10,7 @@ class ProfileListModel: public QAbstractListModel
     Q_OBJECT
 public:
     enum ProfileRoles {
-        IDRole = Qt::UserRole + 1,
-        NameRole = Qt::UserRole + 2,
-        OwnerRole = Qt::UserRole + 3,
+        NameRole = Qt::UserRole + 1,
     };
 
     enum BanType{
@@ -23,12 +21,14 @@ public:
     ProfileListModel(QObject *parent, QComboBox* p_combobox, QPushButton* p_activate, QPushButton* p_add, QPushButton* p_remove, QPushButton* p_edit);
     QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const override;
     int rowCount(const QModelIndex &parent = QModelIndex()) const override;
-    QHash<int, QByteArray> roleNames() const override;
+    QHash<int, QByteArray> roleNames() const override;        
     virtual ~ProfileListModel() {}
 
-    void addProfile(QString name);
-    void removeProfile(int id);
-    void toggleActivation(int id);
+    QList<ProfileObject> getProfileList() {return p_items; }
+    bool setProfile(int pos, ProfileObject* pnew);
+    bool addProfile(ProfileObject* p);
+    bool removeProfile(int pos);
+    void toggleActivation(int pos);
 
 private slots:
     void on_profileComboBox_currentIndexChanged(const QString &arg1);
@@ -36,17 +36,19 @@ private slots:
     void on_profileRemoveButton_clicked();
     void on_profileEditButton_clicked();
     void on_profileActivateButton_clicked();
-
+    void on_profile_created(ProfileObject* p, bool activateNow);
+    void on_profile_edited(ProfileObject* p, bool activateNow);
 private:
     QComboBox* ProfileCombobox;
     QPushButton* ProfileActivateButton;
     QPushButton* ProfileAddButton;
     QPushButton* ProfileRemoveButton;
     QPushButton* ProfileEditButton;
-    QList<ProfileObject*> p_items;
-    ProfileDetailDialog ProfileDialog;
+    QList<ProfileObject> p_items;
+    //ProfileDetailDialog ProfileDialog;
     ProfileObject* getProfilebyID(int id);
     QList<ProfileObject*> getProfilebyName(QString name);
+    int currentPos;
 };
 
 #endif // PROFILEMODEL_H
